@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	kafkatrace "gopkg.in/DataDog/dd-trace-go.v1/contrib/segmentio/kafka.go.v0"
 	"io"
 	"time"
 
@@ -175,7 +176,7 @@ func (k *Kafka) readerClass(call sobek.ConstructorCall) *sobek.Object {
 
 // reader creates a Kafka reader with the given configuration
 // nolint: funlen
-func (k *Kafka) reader(readerConfig *ReaderConfig) *kafkago.Reader {
+func (k *Kafka) reader(readerConfig *ReaderConfig) *kafkatrace.Reader {
 	dialer, err := GetDialer(readerConfig.SASL, readerConfig.TLS)
 	if err != nil {
 		if err.Unwrap() != nil {
@@ -280,7 +281,7 @@ func (k *Kafka) reader(readerConfig *ReaderConfig) *kafkago.Reader {
 		consolidatedConfig.Logger = logger
 	}
 
-	reader := kafkago.NewReader(consolidatedConfig)
+	reader := kafkatrace.NewReader(consolidatedConfig)
 
 	if readerConfig.Offset > 0 {
 		if readerConfig.GroupID == "" {
@@ -305,7 +306,7 @@ func (k *Kafka) reader(readerConfig *ReaderConfig) *kafkago.Reader {
 // consume consumes messages from the given reader.
 // nolint: funlen
 func (k *Kafka) consume(
-	reader *kafkago.Reader, consumeConfig *ConsumeConfig,
+	reader *kafkatrace.Reader, consumeConfig *ConsumeConfig,
 ) []map[string]interface{} {
 	if state := k.vu.State(); state == nil {
 		logger.WithField("error", ErrForbiddenInInitContext).Error(ErrForbiddenInInitContext)

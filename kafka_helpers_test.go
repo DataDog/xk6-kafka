@@ -2,6 +2,7 @@ package kafka
 
 import (
 	"context"
+	kafkatrace "gopkg.in/DataDog/dd-trace-go.v1/contrib/segmentio/kafka.go.v0"
 	"testing"
 
 	"github.com/grafana/sobek"
@@ -99,7 +100,7 @@ func (k *kafkaTest) getCounterMetricsValues() map[string]float64 {
 }
 
 // newWriter creates a Kafka writer for the reader tests.
-func (k *kafkaTest) newWriter(topicName string) *kafkago.Writer {
+func (k *kafkaTest) newWriter(topicName string) *kafkatrace.Writer {
 	// Create a writer to produce messages.
 	return k.module.Kafka.writer(&WriterConfig{
 		Brokers: []string{"localhost:9092"},

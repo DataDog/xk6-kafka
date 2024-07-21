@@ -14,10 +14,19 @@ require (
 	github.com/sirupsen/logrus v1.9.3
 	github.com/stretchr/testify v1.9.0
 	go.k6.io/k6 v0.51.1-0.20240610082146-1f01a9bc2365
+	gopkg.in/DataDog/dd-trace-go.v1 v1.65.1
 	gopkg.in/guregu/null.v3 v3.5.0
 )
 
 require (
+	github.com/DataDog/appsec-internal-go v1.6.0 // indirect
+	github.com/DataDog/datadog-agent/pkg/obfuscate v0.48.0 // indirect
+	github.com/DataDog/datadog-agent/pkg/remoteconfig/state v0.48.1 // indirect
+	github.com/DataDog/datadog-go/v5 v5.3.0 // indirect
+	github.com/DataDog/go-libddwaf/v3 v3.2.1 // indirect
+	github.com/DataDog/go-tuf v1.0.2-0.5.2 // indirect
+	github.com/DataDog/sketches-go v1.4.5 // indirect
+	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/aws/aws-sdk-go-v2 v1.24.0 // indirect
 	github.com/aws/aws-sdk-go-v2/credentials v1.13.37 // indirect
 	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.13.11 // indirect
@@ -30,9 +39,12 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/sts v1.21.5 // indirect
 	github.com/aws/smithy-go v1.19.0 // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
-	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/cespare/xxhash/v2 v2.2.0 // indirect
+	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dlclark/regexp2 v1.11.0 // indirect
 	github.com/dop251/goja v0.0.0-20240516125602-ccbae20bcec2 // indirect
+	github.com/dustin/go-humanize v1.0.1 // indirect
+	github.com/ebitengine/purego v0.6.0-alpha.5 // indirect
 	github.com/evanw/esbuild v0.21.2 // indirect
 	github.com/fatih/color v1.16.0 // indirect
 	github.com/go-logr/logr v1.4.1 // indirect
@@ -40,6 +52,7 @@ require (
 	github.com/go-sourcemap/sourcemap v2.1.4+incompatible // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/pprof v0.0.0-20240402174815-29b9bb013b0f // indirect
+	github.com/google/uuid v1.6.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.1 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/klauspost/compress v1.17.7 // indirect
@@ -50,10 +63,15 @@ require (
 	github.com/mstoykov/k6-taskqueue-lib v0.1.0 // indirect
 	github.com/onsi/ginkgo v1.16.5 // indirect
 	github.com/onsi/gomega v1.20.2 // indirect
+	github.com/outcaste-io/ristretto v0.2.3 // indirect
+	github.com/philhofer/fwd v1.1.2 // indirect
 	github.com/pierrec/lz4/v4 v4.1.19 // indirect
-	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
+	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
+	github.com/secure-systems-lab/go-securesystemslib v0.7.0 // indirect
 	github.com/serenize/snaker v0.0.0-20201027110005-a7ad2135616e // indirect
 	github.com/spf13/afero v1.11.0 // indirect
+	github.com/tinylib/msgp v1.1.8 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
 	github.com/xdg-go/scram v1.1.2 // indirect
 	github.com/xdg-go/stringprep v1.0.4 // indirect
@@ -65,12 +83,16 @@ require (
 	go.opentelemetry.io/otel/sdk v1.24.0 // indirect
 	go.opentelemetry.io/otel/trace v1.24.0 // indirect
 	go.opentelemetry.io/proto/otlp v1.1.0 // indirect
+	go.uber.org/atomic v1.11.0 // indirect
 	golang.org/x/crypto v0.24.0 // indirect
+	golang.org/x/mod v0.17.0 // indirect
 	golang.org/x/net v0.26.0 // indirect
 	golang.org/x/sync v0.7.0 // indirect
 	golang.org/x/sys v0.21.0 // indirect
 	golang.org/x/text v0.16.0 // indirect
 	golang.org/x/time v0.5.0 // indirect
+	golang.org/x/tools v0.21.1-0.20240508182429-e35e4ccd0d2d // indirect
+	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240401170217-c3f982113cda // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240401170217-c3f982113cda // indirect
 	google.golang.org/grpc v1.63.2 // indirect

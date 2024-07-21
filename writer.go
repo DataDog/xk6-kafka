@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	kafkatrace "gopkg.in/DataDog/dd-trace-go.v1/contrib/segmentio/kafka.go.v0"
 	"time"
 
 	"github.com/grafana/sobek"
@@ -142,7 +143,7 @@ func (k *Kafka) writerClass(call sobek.ConstructorCall) *sobek.Object {
 }
 
 // writer creates a new Kafka writer.
-func (k *Kafka) writer(writerConfig *WriterConfig) *kafkago.Writer {
+func (k *Kafka) writer(writerConfig *WriterConfig) *kafkatrace.Writer {
 	dialer, err := GetDialer(writerConfig.SASL, writerConfig.TLS)
 	if err != nil {
 		if err.Unwrap() != nil {
@@ -156,25 +157,24 @@ func (k *Kafka) writer(writerConfig *WriterConfig) *kafkago.Writer {
 		writerConfig.BatchSize = 1
 	}
 
-	writer := &kafkago.Writer{
-		Addr:         kafkago.TCP(writerConfig.Brokers...),
-		Topic:        writerConfig.Topic,
-		Balancer:     Balancers[balancerLeastBytes],
-		MaxAttempts:  writerConfig.MaxAttempts,
-		BatchSize:    writerConfig.BatchSize,
-		BatchBytes:   int64(writerConfig.BatchBytes),
-		BatchTimeout: writerConfig.BatchTimeout,
-		ReadTimeout:  writerConfig.ReadTimeout,
-		WriteTimeout: writerConfig.WriteTimeout,
-		RequiredAcks: kafkago.RequiredAcks(writerConfig.RequiredAcks),
-		Async:        false,
-		Transport: &kafkago.Transport{
-			TLS:      dialer.TLS,
-			SASL:     dialer.SASLMechanism,
-			ClientID: dialer.ClientID,
-		},
-		AllowAutoTopicCreation: writerConfig.AutoCreateTopic,
+	writer := kafkatrace.NewWriter(kafkago.WriterConfig{})
+	writer.Addr = kafkago.TCP(writerConfig.Brokers...)
+	writer.Topic = writerConfig.Topic
+	writer.Balancer = Balancers[balancerLeastBytes]
+	writer.MaxAttempts = writerConfig.MaxAttempts
+	writer.BatchSize = writerConfig.BatchSize
+	writer.BatchBytes = int64(writerConfig.BatchBytes)
+	writer.BatchTimeout = writerConfig.BatchTimeout
+	writer.ReadTimeout = writerConfig.ReadTimeout
+	writer.WriteTimeout = writerConfig.WriteTimeout
+	writer.RequiredAcks = kafkago.RequiredAcks(writerConfig.RequiredAcks)
+	writer.Async = false
+	writer.Transport = &kafkago.Transport{
+		TLS:      dialer.TLS,
+		SASL:     dialer.SASLMechanism,
+		ClientID: dialer.ClientID,
 	}
+	writer.AllowAutoTopicCreation = writerConfig.AutoCreateTopic
 
 	if balancer, ok := Balancers[writerConfig.Balancer]; ok {
 		writer.Balancer = balancer
@@ -193,7 +193,7 @@ func (k *Kafka) writer(writerConfig *WriterConfig) *kafkago.Writer {
 
 // produce sends messages to Kafka with the given configuration.
 // nolint: funlen
-func (k *Kafka) produce(writer *kafkago.Writer, produceConfig *ProduceConfig) {
+func (k *Kafka) produce(writer *kafkatrace.Writer, produceConfig *ProduceConfig) {
 	if state := k.vu.State(); state == nil {
 		logger.WithField("error", ErrForbiddenInInitContext).Error(ErrForbiddenInInitContext)
 		common.Throw(k.vu.Runtime(), ErrForbiddenInInitContext)
